@@ -1,3 +1,7 @@
+<div class="text-center text-muted" *ngIf="!photos.length">
+  <h4>Sorry, no photos!</h4>
+</div>
+
 <ol class="list-unstyled">
   <li *ngFor="let cols of rows" class="row">
     <div *ngFor="let photo of cols" class="col-lg-2 col-md-4 col-sm-6">

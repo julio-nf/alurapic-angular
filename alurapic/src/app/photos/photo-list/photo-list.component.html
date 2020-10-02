@@ -1,1 +1,11 @@
-<app-photos [photos]="photos"></app-photos>
+<div class="text-center mb-3 mt-3">
+    <form>
+        <input type="search"
+               class="rounded"
+               placeholder="Search photo..."
+               autofocus
+               (keyup)="debounce.next($event.target.value)">
+    </form>
+</div>
+
+<app-photos [photos]="photos | filterByDescription: filter"></app-photos>

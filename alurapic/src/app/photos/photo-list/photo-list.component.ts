@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { Photo } from '../photo/photo';
-import { PhotoService } from '../photo/photo.service';
 
 @Component({
   selector: 'app-photo-list',
@@ -12,17 +13,19 @@ import { PhotoService } from '../photo/photo.service';
 export class PhotoListComponent implements OnInit {
   title = 'alurapic';
   photos: Photo[] = [];
+  filter = '';
+  debounce: Subject<string> = new Subject<string>();
 
-  constructor(
-    private photoService: PhotoService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const userName = this.activatedRoute.snapshot.params.userName;
+    this.photos = this.activatedRoute.snapshot.data.photos;
 
-    this.photoService.getFromUser(userName)
-      .subscribe(photo => this.photos = photo);
+    this.debounce
+      .pipe(debounceTime(300))
+      .subscribe(
+        filter => this.filter = filter
+      );
   }
 
 }
