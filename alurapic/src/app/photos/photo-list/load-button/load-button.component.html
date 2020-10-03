@@ -1,0 +1,7 @@
+<div class="text-center" *ngIf="hasMore;else noDataMessageTemplate">
+    <button type="button" class="btn btn-lg btn-info mb-3 text-white">Load more</button>
+</div>
+
+<ng-template #noDataMessageTemplate>
+    <p class="text-center text-muted">Sorry, mo more data.</p>
+</ng-template>
